@@ -4,15 +4,27 @@ export class EnvironmentConfig {
     private readonly requiredEnvVars: string[] = [
         'SERVER_PORT',  
         'MONGO_URI',
+        'JWT_SECRET_KEY',
+        'JWT_ACCES_HOUR',
+        'JWT_REFRESH_MONTH',
+        'NODE_ENV',
     ];
 
     public serverPort: string;
     public mongoURI: string;
+    public jwtSecretKey: string;
+    public jwtAccesHour: string;
+    public jwtRefreshMonth: string;
+    public nodeEnv: string;
 
     constructor() {
         dotenv.config();
         this.serverPort = '';
         this.mongoURI = '';
+        this.jwtSecretKey = '';
+        this.jwtAccesHour = '';
+        this.jwtRefreshMonth = '';
+        this.nodeEnv = '';
         this.checkRequiredEnvVars();
     }
 
@@ -33,6 +45,18 @@ export class EnvironmentConfig {
                 break;
             case 'MONGO_URI':
                 this.mongoURI = value;
+                break;
+            case 'JWT_SECRET_KEY':
+                this.jwtSecretKey = value;
+                break;
+            case 'JWT_ACCES_HOUR':
+                this.jwtAccesHour = value;
+                break;
+            case 'JWT_REFRESH_MONTH':
+                this.jwtRefreshMonth = value;
+                break;
+            case 'NODE_ENV':
+                this.nodeEnv = value;
                 break;
         }
     }
