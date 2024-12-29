@@ -6,6 +6,7 @@ import { EnvironmentConfig } from '@/class/EnviromentConfig';
 import { CRUD_ICONS, log } from '@/utils/logs';
 import routes from '@/routes/index.routes';
 import { HOST } from '@/utils/serverIP';
+import { connectDB } from './lib/db';
 
 const config = new EnvironmentConfig();
 
@@ -61,6 +62,7 @@ const startServer = async (): Promise<void> => {
 		server
 			.listen(availablePort, () => {
 				log(`📡 Server running at http://${HOST}:${availablePort}/`, 'success', __filename);
+				connectDB();
 			})
 			.on('error', (err) => {
 				const errorMessage = err instanceof Error ? err.message : 'Unknown error';
