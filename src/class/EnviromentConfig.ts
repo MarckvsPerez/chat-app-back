@@ -8,6 +8,9 @@ export class EnvironmentConfig {
         'JWT_ACCES_HOUR',
         'JWT_REFRESH_MONTH',
         'NODE_ENV',
+        'CLOUDINARY_CLOUD_NAME',
+        'CLOUDINARY_API_KEY',
+        'CLOUDINARY_API_SECRET',
     ];
 
     public serverPort: string;
@@ -16,6 +19,10 @@ export class EnvironmentConfig {
     public jwtAccesHour: string;
     public jwtRefreshMonth: string;
     public nodeEnv: string;
+    public cloudinaryCloudName: string;
+    public cloudinaryApiKey: string;
+    public cloudinaryApiSecret: string;
+
 
     constructor() {
         dotenv.config();
@@ -25,6 +32,9 @@ export class EnvironmentConfig {
         this.jwtAccesHour = '';
         this.jwtRefreshMonth = '';
         this.nodeEnv = '';
+        this.cloudinaryCloudName = '';
+        this.cloudinaryApiKey = '';
+        this.cloudinaryApiSecret = '';
         this.checkRequiredEnvVars();
     }
 
@@ -57,6 +67,15 @@ export class EnvironmentConfig {
                 break;
             case 'NODE_ENV':
                 this.nodeEnv = value;
+                break;
+            case 'CLOUDINARY_CLOUD_NAME':
+                this.cloudinaryCloudName = value;
+                break;
+            case 'CLOUDINARY_API_KEY':
+                this.cloudinaryApiKey = value;
+                break;
+            case 'CLOUDINARY_API_SECRET':
+                this.cloudinaryApiSecret = value;
                 break;
         }
     }
