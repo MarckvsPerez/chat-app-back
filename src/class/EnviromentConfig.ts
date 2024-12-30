@@ -11,6 +11,7 @@ export class EnvironmentConfig {
         'CLOUDINARY_CLOUD_NAME',
         'CLOUDINARY_API_KEY',
         'CLOUDINARY_API_SECRET',
+        'CLIENT_URL'
     ];
 
     public serverPort: string;
@@ -22,7 +23,7 @@ export class EnvironmentConfig {
     public cloudinaryCloudName: string;
     public cloudinaryApiKey: string;
     public cloudinaryApiSecret: string;
-
+    public clientUrl: string;
 
     constructor() {
         dotenv.config();
@@ -35,6 +36,7 @@ export class EnvironmentConfig {
         this.cloudinaryCloudName = '';
         this.cloudinaryApiKey = '';
         this.cloudinaryApiSecret = '';
+        this.clientUrl = '';
         this.checkRequiredEnvVars();
     }
 
@@ -76,6 +78,9 @@ export class EnvironmentConfig {
                 break;
             case 'CLOUDINARY_API_SECRET':
                 this.cloudinaryApiSecret = value;
+                break;
+            case 'CLIENT_URL':
+                this.clientUrl = value;
                 break;
         }
     }
