@@ -17,13 +17,13 @@ export const protectRoute = async (req: AuthRequest, res: Response, next: NextFu
       throw new Error('Invalid token');
     }
 
-    const user = await User.findById(decoded.id).select('-password');
+    const user = await User.findById(decoded._id).select('-password');
     if (!user) {
       return res.status(401).json({ message: 'Unauthorized' });
     }
     
     req.user = {
-      id: user._id.toString(),
+      _id: user._id.toString(),
       fullName: user.fullName,
       email: user.email,
       profilePicture: user.profilePicture,

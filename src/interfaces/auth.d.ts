@@ -2,7 +2,7 @@ import { type JwtPayload } from 'jsonwebtoken';
 import { type Request } from 'express';
 
 export interface UserPayload {
-	id: number;
+	_id: string;
 	email: Email;
 	password: string;
 }
@@ -18,7 +18,7 @@ interface AuthRequest extends Request {
 
 interface AccessTokenPayload extends JwtPayload {
 	token_type: 'access' | 'refresh';
-	id: number;
+	_id: string;
 	email: string;
 	iat: number;
 	exp: number;

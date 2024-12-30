@@ -8,7 +8,7 @@ import cloudinary from "@/lib/cloudinary";
 
 export const getUsers = async (req: AuthRequest, res: Response) => {
     try {
-        const loggedInUserId = req.user?.id;
+        const loggedInUserId = req.user?._id;
         const users = await User.find({ _id: { $ne: loggedInUserId } });
         return res.status(200).json(users);
     } catch (error) {
@@ -21,7 +21,7 @@ export const getUsers = async (req: AuthRequest, res: Response) => {
 export const getMessages = async (req: AuthRequest, res: Response) => {
     try {
         const { userId } = req.params;
-        const loggedInUserId = req.user?.id;
+        const loggedInUserId = req.user?._id;
 
         const messages = await Message.find({ $or: [{ senderId: loggedInUserId, receiverId: userId }, { senderId: userId, receiverId: loggedInUserId }] });
 
@@ -35,8 +35,8 @@ export const getMessages = async (req: AuthRequest, res: Response) => {
 export const sendMessage = async (req: AuthRequest, res: Response) => {
     try {
         const { text, image } = req.body;
-        const { userId } = req.params;
-        const loggedInUserId = req.user?.id;
+        const { id: receiverId } = req.params;
+        const senderId = req.user?._id;
 
         let imageUrl = null;
         
@@ -46,8 +46,8 @@ export const sendMessage = async (req: AuthRequest, res: Response) => {
         }
 
         const newMessage = new Message({
-            senderId: loggedInUserId,
-            receiverId: userId,
+            senderId: senderId,
+            receiverId: receiverId,
             text,
             image: imageUrl
         });

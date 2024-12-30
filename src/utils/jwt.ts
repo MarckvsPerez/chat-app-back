@@ -14,7 +14,7 @@ export function createAccesToken(user: UserPayload, res: Response): string {
 
 		const payload: AccessTokenPayload = {
 			token_type: 'access',
-			id: user.id,
+			_id: user._id,
 			email: user.email,
 			iat: Date.now(),
 			exp: expToken.getTime(),
