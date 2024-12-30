@@ -8,14 +8,12 @@ import { CRUD_ICONS, log } from '@/utils/logs';
 import routes from '@/routes/index.routes';
 import { HOST } from '@/utils/serverIP';
 import { connectDB } from './lib/db';
-
+import { app, server } from './lib/socket';
+import { seedDatabase } from './seeds/user.seed';
 const config = new EnvironmentConfig();
 
-const app = express();
-const server = http.createServer(app);
-
-app.use(express.json({ limit: '1mb' }));
-app.use(express.urlencoded({ limit: '1mb', extended: true }));
+app.use(express.json({ limit: '2mb' }));
+app.use(express.urlencoded({ limit: '2mb', extended: true }));
 app.use(cors({
 	origin: config.clientUrl,
 	credentials: true
@@ -55,6 +53,8 @@ const getAvailablePort = async (startPort: number): Promise<number> => {
 };
 
 app.get('/', (_req, res) => {
+	seedDatabase();
+	log('Database seeded successfully', 'info', __filename);
 	res.send('Server connected');
 });
 
