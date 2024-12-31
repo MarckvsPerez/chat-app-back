@@ -57,17 +57,6 @@ export const login = async (req: Request, res: Response) => {
   }
 };
 
-export const logout = (_req: Request, res: Response) => {
-  try {
-    res.clearCookie('accessToken');
-    return res.status(200).json({ message: 'User logged out successfully' });
-  } catch (error) {
-    log("❌ Error logging out user", 'error', __dirname);
-    return res.status(500).json({ message: 'Internal server error' });
-  }
-};
-
-
 export const updateProfile = async (req: AuthRequest, res: Response) => {
 
   try {
