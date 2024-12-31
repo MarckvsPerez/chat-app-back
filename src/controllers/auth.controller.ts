@@ -26,10 +26,10 @@ export const signup = async (req: Request, res: Response) => {
     if (!newUser) {
       return res.status(400).json({ message: 'User not created' });
     }
-    createAccesToken({ _id: newUser._id.toString(), email: newUser.email, password: newUser.password }, res);
+    const token = createAccesToken({ _id: newUser._id.toString(), email: newUser.email, password: newUser.password }, res);
     await newUser.save();
 
-    return res.status(201).json({ message: 'User created successfully', _id: newUser._id });
+    return res.status(201).json({ message: 'User created successfully', _id: newUser._id, token });
   } catch (error) {
     log("❌ Error creating user", 'error', __dirname);
     return res.status(500).json({ message: 'Internal server error' });
@@ -49,8 +49,8 @@ export const login = async (req: Request, res: Response) => {
       return res.status(400).json({ message: 'Invalid password' });
     }
 
-    createAccesToken({ _id: user._id.toString(), email: user.email, password: user.password }, res);
-    return res.status(200).json({ message: 'User logged in successfully', _id: user._id, fullName: user.fullName, email: user.email, profilePicture: user.profilePicture });
+    const token = createAccesToken({ _id: user._id.toString(), email: user.email, password: user.password }, res);
+    return res.status(200).json({ message: 'User logged in successfully', _id: user._id, fullName: user.fullName, email: user.email, profilePicture: user.profilePicture, token });
   } catch (error) {
     log("❌ Error logging in user", 'error', __dirname);
     return res.status(500).json({ message: 'Internal server error' });
